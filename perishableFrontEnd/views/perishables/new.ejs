@@ -1,0 +1,27 @@
+<div class="d-flex" id="newPerishable">
+    <div class="col-xl-5">
+        <h2>New perishable</h2>
+        <form action="/perishable/create" method="POST">
+            <div class="form-group">
+                <label for="perishable-name" class="control-label">Name:</label>
+                <input type="text" class="form-control" name="name" id="perishable-name" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="perishable-bestbeforedate" class="control-label">Best before:</label>
+                <input type="date" class="form-control" name="bestBeforeDate" id="perishable-bestbeforedate-new" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="perishable-boughtdate" class="control-label">Bought:</label>
+                <input type="date" class="form-control" name="boughtDate" id="perishable-boughtdate-new">
+            </div>
+            <br>
+            <div class="form-group">
+                <a class="btn btn-secondary btn-sm" href="/perishable" role="button">Cancel</a>
+                <button class="btn btn-success btn-sm" type="submit">Create</button>
+            </div>
+            <br>
+        </form>
+    </div>
+</div>

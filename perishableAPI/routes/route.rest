@@ -1,0 +1,27 @@
+GET http://localhost:3005/perishables
+
+###
+
+GET http://localhost:3005/perishables/615cca63fca61a7c099f5ad8
+
+###
+
+POST http://localhost:3005/perishables
+Content-Type: application/json
+
+{
+  "name": "Pizzas"
+}
+
+###
+
+PATCH http://localhost:3005/perishables/616315d1101580696f5d7e84
+Content-Type: application/json 
+
+{
+  "name": "Tomato"
+}
+
+###
+
+DELETE http://localhost:3005/perishables/616758c2c2aab160c4e9d9ed

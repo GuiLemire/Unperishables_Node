@@ -1,0 +1,13 @@
+<div class="d-flex" id="editPerishable">
+    <div class="col-xl-5">
+        <h2>Edit perishable</h2>
+        <form action="/perishable/update" method="POST">
+            <input type="hidden" name="_id" id="_id" value="<%= perishable._id %>">
+            <%- include('_form_fields') %>
+            <div class="form-group">
+                <a class="btn btn-secondary btn-sm" href="/perishable" role="button">Cancel</a>
+                <button class="btn btn-success btn-sm" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

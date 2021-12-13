@@ -1,0 +1,22 @@
+<div class="form-group">
+    <label for="perishable-name" class="control-label">Name:</label>
+    <input type="text" class="form-control" name="name" id="perishable-name" 
+        value="<%= perishable.name %>">
+</div>
+<br>
+<div class="form-group">
+    <label for="perishable-bestbeforedate" class="control-label">Best before:</label>
+    <input type="date" class="form-control" name="bestBeforeDate" id="perishable-bestbeforedate"
+        value="<%= perishable.bestBeforeDate.slice(0, 10) %>">
+</div>
+<br>
+<div class="form-group">
+    <label for="perishable-boughtdate" class="control-label">Bought:</label>
+    <% if (perishable.boughtDate != null) { %>
+        <input type="date" class="form-control" name="boughtDate" id="perishable-boughtdate"
+            value="<%= perishable.boughtDate.slice(0, 10) %>">
+    <% } else { %> 
+        <input type="date" class="form-control" name="boughtDate" id="perishable-boughtdate">
+    <% } %> 
+</div>
+<br>

@@ -1,0 +1,93 @@
+<% var today = new Date().toISOString().slice(0, 10) %> 
+  
+<form action="/perishable" method="GET" class="d-flex" id="search-bar">
+  <input class="form-control" name="name" id="search-bar-input" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-dark" type="submit">Search</button>
+</form>
+
+<div class="border border-secondary rounded">
+  <div class="in-border">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="col-3">Name</th>
+          <th class="col-3">Best before</th>
+          <th class="col-3">Bougth</th>
+          <th class="col-3">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for( let index=0; index < allPerishables.length; index++ ) { %>
+          <% 
+            var bbd = allPerishables[index].bestBeforeDate.slice(0, 10) 
+            var dayDif = bbd.slice(8, 10) - today.slice(8, 10)
+            var monthDif = bbd.slice(5, 7) - today.slice(5, 7)
+            var yearDif = bbd.slice(0, 4) - today.slice(0, 4)
+          %>
+
+          <% if (bbd < today) { %>    
+            <!-- Passé date -->        
+            <tr class="align-middle"> 
+          <% } else if (bbd == today) { %>   
+            <!-- Passe date aujourd'hui -->     
+            <tr class="align-middle text-danger"> 
+          <% } else if (yearDif > 0 && monthDif != -11) { %>  
+            <!-- Bon pour encore 1 mois et plus -->      
+            <tr class="align-middle text-success"> 
+          <% } else if ((monthDif == 0 && dayDif < 5) || (monthDif != 0 && dayDif < -27)) { %>  
+            <!-- Passe date dans moins de 5 jours -->      
+            <tr class="align-middle text-warning"> 
+          <% } else { %>
+            <!-- Passe date dans plus de 5 jours -->
+            <tr class="align-middle text-success">
+          <% } %>   
+              <td>
+                <%= allPerishables[index].name %>
+              </td>
+              <td>
+                <%= allPerishables[index].bestBeforeDate.slice(0, 10) %>
+              </td>
+              <td>
+                <% if (allPerishables[index].boughtDate !=null) { %>
+                  <%= allPerishables[index].boughtDate.slice(0, 10) %>
+                    <% } %>
+              </td>
+              <td>
+                <a class="btn btn-success btn-sm" href="/perishable/edit/<%= allPerishables[index]._id %>"
+                  role="button">Edit</a>
+                &nbsp;
+                <button type="button" id="deleteBtn" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                  data-bs-target="#validationModal_<%= allPerishables[index]._id %>">Delete
+                </button>
+              </td>
+            </tr>
+          <!-- Validation Modal -->
+          <div class="modal fade" id="validationModal_<%= allPerishables[index]._id %>" tabindex="-1"
+            aria-labelledby="validationModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="validationModalLabel">Warning</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete <%= allPerishables[index].name %>?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <a class="btn btn-danger" href="perishable/delete/<%= allPerishables[index]._id %>"
+                    role="button">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+      <% if (allPerishables.length==0) { %>
+        <h6>No result found for "<%= name %>"</h6>
+        <% } %>
+    </div>
+  </div>
+</div>
